@@ -1,10 +1,10 @@
 '''Test mixture finite and infinite mixture models'''
 
-import pymc as pm
 import numpy as np
+import pymc as pm
 import pylab as pl
-from gaussian_mixtures import fixed_mixture_model as fmm
-from gaussian_mixtures import infty_mixture_model as imm
+from pymc_submodels import fixed_mixture_model as fmm
+from pymc_submodels import infty_mixture_model as imm
 
 def run_fixed_model(data, K):
     '''Return number of components used in a simple Gaussian mixture'''    
@@ -13,8 +13,7 @@ def run_fixed_model(data, K):
     tau_base = 0.01
     alpha = 1.
     mdl = fmm.model(data, tau_like, mu_base, tau_base, alpha, K)
-    mcmc = pm.MCMC(mdl)
-    #mcmc.use_step_method(pm.AdaptiveMetropolis, mdl[0]['pip'])
+    mcmc = pm.MCMC(mdl)    
     mcmc.sample(10000, 1000, 5, verbose = 0)
     
     return mcmc.trace('z')[:]
@@ -27,7 +26,6 @@ def run_infty_model(data, K = 20):
     alpha = 1.
     mdl = imm.model(data, tau_like, mu_base, tau_base, alpha, K)    
     mcmc = pm.MCMC(mdl)
-    #mcmc.use_step_method(pm.AdaptiveMetropolis, mdl[0]['pip'])
     
     mcmc.sample(10000, 1000, 5, verbose = 0)
     

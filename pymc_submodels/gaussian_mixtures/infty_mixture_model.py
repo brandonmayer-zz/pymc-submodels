@@ -3,9 +3,9 @@ Infinite mixture model based on Dirichlet process
 
 @author: daniel
 '''
-
-from stickbreaking import dp
-from  mixture_models import gaussian_mixture
+from pymc_submodels import dp
+from pymc_submodels import dp
+from mixture_models import gaussian_mixture
 
 def model(data, tau_like, mu_base, tau_base, alpha, K = 20):
     
